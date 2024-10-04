@@ -1,6 +1,7 @@
 import discord as dis
 import requests as req
 from discord.ext import commands
+from bs4 import BeautifulSoup
 import random as ran
 import time
 
@@ -83,6 +84,23 @@ async def sortie(ctx):
 @client.command()
 async def api(ctx):
     await ctx.send("api.warframestat.us/pc/en")
+
+@client.command()
+async def marketprice(ctx, item: str):
+    # market = req.get(f"https://warframe.market/items/{item}/statistics")
+    # bs = BeautifulSoup(market.text, "html.parser")
+    # price = bs.find("span", class_="legend__avg").text
+    # await ctx.send(price)
+    await ctx.send("command broken rn")
+
+@client.command()
+async def randomframe(ctx):
+    frames = ["Ash", "Atlas", "Banshee", "Baruuk", "Caliban", "Chroma", "Citrine", "Dagath", "Ember", "Equinox", "Excalibur", "Frost", "Gara", "Garuda", "Gauss", "Grendel", "Gyre", "Harrow", "Hildryn", "Hydroid", "Inaros", "Ivara", "Khora", "Kullervo", "Lavos", "Limbo", "Loki", "Mag", "Mesa", "Mirage", "Nekros", "Nezha", "Nidus", "Nova", "Nyx", "Oberon", "Octavia", "Protea", "Qorvex", "Revenant", "Rhino", "Saryn", "Sevagoth", "Styanax", "Titania", "Trinity", "Valkyr", "Vauban", "Volt", "Voruna", "Wisp", "Wukong", "Xaku", "Yareli", "Zephyr"]
+    random_frame = ran.choice(frames)
+    print(f"random choice = {random_frame}")
+    embed = dis.Embed()
+    embed.description = f"Your Random Warframe is [{random_frame}](https://warframe.fandom.com/wiki/{random_frame})"
+    await ctx.send(embed=embed)
 
 @client.event
 async def on_ready():
