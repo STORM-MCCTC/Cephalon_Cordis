@@ -1,6 +1,8 @@
 import discord as dis
 import requests as req
 from discord.ext import commands
+import random as ran
+import time
 
 with open('client_token.txt', 'r') as file:
     client_token = file.read().strip()
@@ -21,9 +23,9 @@ async def cetus(ctx):
     cetus = req.get("https://api.warframestat.us/pc/en/cetusCycle")
     cetus_data = cetus.json()
     if cetus_data['isDay'] == True:
-        await ctx.send(f"it is day on cetus, {cetus_data['timeLeft']} to night")
+        await ctx.send(f"it is day on cetus<:OstronSyndicateFlag:1291251131246182400>, {cetus_data['timeLeft']} to night")
     elif cetus_data['isDay'] == False:
-        await ctx.send(f"it is night on the Vallis, {cetus_data['timeLeft']} to day")
+        await ctx.send(f"it is night on cetus<:OstronSyndicateFlag:1291251131246182400>, {cetus_data['timeLeft']} to day")
     else:
         await ctx.send("couldn't request data")
 
@@ -32,9 +34,9 @@ async def vallis(ctx):
     vallis = req.get("https://api.warframestat.us/pc/en/vallisCycle")
     vallis_data = vallis.json()
     if vallis_data['isWarm'] == True:
-        await ctx.send(f"it is warm on the Vallis, {vallis_data['timeLeft']} to cold")
+        await ctx.send(f"it is warm on the Vallis<:SolarisUnitedSyndicateFlagRC:1291251177475801128>, {vallis_data['timeLeft']} to cold")
     elif vallis_data['isWarm'] == False:
-        await ctx.send(f"it is cold on the Vallis, {vallis_data['timeLeft']} to warm")
+        await ctx.send(f"it is cold on the Vallis<:SolarisUnitedSyndicateFlagRC:1291251177475801128>, {vallis_data['timeLeft']} to warm")
     else:
         await ctx.send("couldn't request data")
 
@@ -59,6 +61,28 @@ async def zariman(ctx):
         await ctx.send(f"The Zariman is Grineer<:GrineerIcon:1291251937802588180>, {zariman_data ['timeLeft']} to Corpus<:CorpusIcon:1291251906576121947>")
     else:
         await ctx.send("couldn't request data")
+
+@client.command()
+async def voidtrader(ctx):
+    voidtrader = req.get("https://api.warframestat.us/pc/en/voidTrader")
+    voidtrader_data = voidtrader.json()
+    await ctx.send(f"Baro Ki'Teer will return in {voidtrader_data ['startString']} on the {voidtrader_data ['location']} <:OrokinDucats:1291370996229603430>")
+
+@client.command()
+async def archon(ctx):
+    archon = req.get("https://api.warframestat.us/pc/en/archonHunt")
+    archon_data = archon.json()
+    await ctx.send(f"The Archon Hunt is going to reset in {archon_data ['eta']} <:ArchonShard:1291372955137474681>")
+
+@client.command()
+async def sortie(ctx):
+    sortie = req.get("https://api.warframestat.us/pc/en/sortie")
+    sortie_data = sortie.json()
+    await ctx.send(f"The sortie is going to reset in {sortie_data ['eta']} <:Sortie:1291378207337222224>")
+
+@client.command()
+async def api(ctx):
+    await ctx.send("api.warframestat.us/pc/en")
 
 @client.event
 async def on_ready():
