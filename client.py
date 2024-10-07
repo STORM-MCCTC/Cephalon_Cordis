@@ -24,66 +24,72 @@ async def cetus(ctx):
     cetus = req.get("https://api.warframestat.us/pc/en/cetusCycle")
     cetus_data = cetus.json()
     if cetus_data['isDay'] == True:
-        await ctx.send(f"it is day on cetus<:OstronSyndicateFlag:1291251131246182400>, {cetus_data['timeLeft']} to night")
+        await ctx.send(f"Operator, the plains of Cetus are currently bathed in *daylight*<:OstronSyndicateFlag:1291251131246182400>. {cetus_data['timeLeft']} remains until *nightfall* descends.")
     elif cetus_data['isDay'] == False:
-        await ctx.send(f"it is night on cetus<:OstronSyndicateFlag:1291251131246182400>, {cetus_data['timeLeft']} to day")
+        await ctx.send(f"Operator, the plains of Cetus are enveloped in *night*<:OstronSyndicateFlag:1291251131246182400>. The sun will rise in {cetus_data['timeLeft']}")
     else:
-        await ctx.send("couldn't request data")
+        await ctx.send("Error: Unable to retrieve Cetus time cycle data. Cephalon suggests verifying the data source, Operator.")
+
 
 @client.command()
 async def vallis(ctx):
     vallis = req.get("https://api.warframestat.us/pc/en/vallisCycle")
     vallis_data = vallis.json()
     if vallis_data['isWarm'] == True:
-        await ctx.send(f"it is warm on the Vallis<:SolarisUnitedSyndicateFlagRC:1291251177475801128>, {vallis_data['timeLeft']} to cold")
+        await ctx.send(f"Operator, it is currently... *warm* on the Vallis<:SolarisUnitedSyndicateFlagRC:1291251177475801128>. The transition to *cold* will occur in {vallis_data['timeLeft']}. Proceed accordingly.")
     elif vallis_data['isWarm'] == False:
-        await ctx.send(f"it is cold on the Vallis<:SolarisUnitedSyndicateFlagRC:1291251177475801128>, {vallis_data['timeLeft']} to warm")
+        await ctx.send(f"Operator, conditions on the Vallis are currently... *cold*<:SolarisUnitedSyndicateFlagRC:1291251177475801128>. Warmth will return in {vallis_data['timeLeft']}. Shall I prepare for thermal fluctuations?")
     else:
-        await ctx.send("couldn't request data")
+        await ctx.send("Error: Cephalon is unable to retrieve Vallis climate data. Perhaps a... recalibration is in order, Operator.")
+
 
 @client.command()
 async def cambion(ctx):
     cambion = req.get("https://api.warframestat.us/pc/en/cambionCycle")
     cambion_data = cambion.json()
     if cambion_data['state'] == "vome":
-        await ctx.send(f"it is vome on the Cambion Drift, {cambion_data['timeLeft']} to fass")
+        await ctx.send(f"Operator, it is currently... *Vome* on the Cambion Drift. {cambion_data['timeLeft']} remains until *Fass* emerges once more.")
     elif cambion_data['state'] == "fass":
-        await ctx.send(f"it is fass on the Cambion Drift, {cambion_data['timeLeft']} to vome")
+        await ctx.send(f"Operator, the Cambion Drift is under the influence of *Fass*. The cycle will shift to *Vome* in {cambion_data['timeLeft']}.")
     else:
-        await ctx.send("couldn't request data")
+        await ctx.send("Error: Unable to retrieve Cambion Drift state. Cephalon suggests recalibration, Operator.")
+
 
 @client.command()
 async def zariman(ctx):
     zariman = req.get("https://api.warframestat.us/pc/en/zarimanCycle")
     zariman_data = zariman.json()
-    if zariman_data ['isCorpus'] == True:
-        await ctx.send(f"The Zariman is Corpus<:CorpusIcon:1291251906576121947>, {zariman_data ['timeLeft']} to Grineer<:GrineerIcon:1291251937802588180> ")
-    elif zariman_data ['isCorpus'] == False:
-        await ctx.send(f"The Zariman is Grineer<:GrineerIcon:1291251937802588180>, {zariman_data ['timeLeft']} to Corpus<:CorpusIcon:1291251906576121947>")
+    if zariman_data['isCorpus'] == True:
+        await ctx.send(f"Operator, the Zariman is currently under *Corpus* influence<:CorpusIcon:1291251906576121947>. {zariman_data['timeLeft']} until the *Grineer* seize control<:GrineerIcon:1291251937802588180>.")
+    elif zariman_data['isCorpus'] == False:
+        await ctx.send(f"Operator, the Zariman is currently controlled by the *Grineer*<:GrineerIcon:1291251937802588180>. The shift to *Corpus* control will occur in {zariman_data['timeLeft']}<:CorpusIcon:1291251906576121947>.")
     else:
-        await ctx.send("couldn't request data")
+        await ctx.send("Error: Unable to retrieve Zariman faction data. Cephalon recommends further diagnostic, Operator.")
+
 
 @client.command()
 async def voidtrader(ctx):
     voidtrader = req.get("https://api.warframestat.us/pc/en/voidTrader")
     voidtrader_data = voidtrader.json()
-    await ctx.send(f"Baro Ki'Teer will return in {voidtrader_data ['startString']} on the {voidtrader_data ['location']} <:OrokinDucats:1291370996229603430>")
+    await ctx.send(f"Operator, Baro Ki'Teer will return in *{voidtrader_data['startString']}* at the *{voidtrader_data['location']}*.<:OrokinDucats:1291370996229603430>")
 
 @client.command()
 async def archon(ctx):
     archon = req.get("https://api.warframestat.us/pc/en/archonHunt")
     archon_data = archon.json()
-    await ctx.send(f"The Archon Hunt is going to reset in {archon_data ['eta']} <:ArchonShard:1291372955137474681>")
+    await ctx.send(f"Operator, the Archon Hunt will reset in *{archon_data['eta']}*.<:ArchonShard:1291372955137474681>")
 
 @client.command()
 async def sortie(ctx):
     sortie = req.get("https://api.warframestat.us/pc/en/sortie")
     sortie_data = sortie.json()
-    await ctx.send(f"The sortie is going to reset in {sortie_data ['eta']} <:Sortie:1291378207337222224>")
+    await ctx.send(f"Operator, the sortie will reset in *{sortie_data['eta']}*.<:Sortie:1291378207337222224>")
 
 @client.command()
 async def api(ctx):
-    await ctx.send("api.warframestat.us/pc/en")
+    embed = dis.Embed()
+    embed.description = ("[api.warframestat.us](https://api.warframestat.us/pc/en)")
+    await ctx.send(embed=embed)
 
 @client.command()
 async def marketprice(ctx, item: str):
@@ -99,7 +105,7 @@ async def randomframe(ctx):
     random_frame = ran.choice(frames)
     print(f"random choice = {random_frame}")
     embed = dis.Embed()
-    embed.description = f"Your Random Warframe is [{random_frame}](https://warframe.fandom.com/wiki/{random_frame})"
+    embed.description = f"Operator, your randomized Warframe is... [{random_frame}](https://warframe.fandom.com/wiki/{random_frame})."
     await ctx.send(embed=embed)
 
 @client.event
