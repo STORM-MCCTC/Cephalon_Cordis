@@ -5,21 +5,41 @@ from bs4 import BeautifulSoup
 import random as ran
 import time
 
+#! opens token
 with open('client_token.txt', 'r') as file:
     client_token = file.read().strip()
 
+#! Globle Vars
 API_URL = 'https://api.warframestat.us/pc/en'
 API_market_URL = 'https://api.warframe.market/v1/items/'
+client_verison = '0.1.9.0'
 
+#! client_verison info
+#? first number is for if the bot is out of beta or not 0 = beta, 1 = launched
+#? second number is for major verisons that change alot about the bot
+#? third number is for minor verisons such as bug fixs and small features
+#? forth number is for mid-minor verison updates, i work on multiple computers so if i run out of time i need to push a possibley unfinesed project to github to pull later these verison are unstable.
+
+#! Intents
 intents = dis.Intents.default()
 intents.message_content = True
 
+#! prefix
 client = commands.Bot(command_prefix='~', intents=intents)
 
+#! commands
+
+#? ~ping
 @client.command()
 async def ping(ctx):
-    await ctx.send("Operator, I have been Pinged. Do you need my help?")
+    await ctx.send("Operator, Cordis been Pinged. Do you need my help?")
 
+#? ~verison
+@client.command()
+async def verison(ctx):
+    await ctx.send(f"Operator, Cordis's Software Verison is v{client_verison}")
+
+#? ~cetus
 @client.command()
 async def cetus(ctx):
     cetus = req.get("https://api.warframestat.us/pc/en/cetusCycle")
@@ -31,7 +51,7 @@ async def cetus(ctx):
     else:
         await ctx.send("Error: Unable to retrieve Cetus time cycle data. Cephalon suggests verifying the data source, Operator.")
 
-
+#? ~vallis
 @client.command()
 async def vallis(ctx):
     vallis = req.get("https://api.warframestat.us/pc/en/vallisCycle")
@@ -43,7 +63,7 @@ async def vallis(ctx):
     else:
         await ctx.send("Error: Cephalon is unable to retrieve Vallis climate data. Perhaps a... recalibration is in order, Operator.")
 
-
+#? ~cambion
 @client.command()
 async def cambion(ctx):
     cambion = req.get("https://api.warframestat.us/pc/en/cambionCycle")
@@ -55,7 +75,7 @@ async def cambion(ctx):
     else:
         await ctx.send("Error: Unable to retrieve Cambion Drift state. Cephalon suggests recalibration, Operator.")
 
-
+#? ~zariman
 @client.command()
 async def zariman(ctx):
     zariman = req.get("https://api.warframestat.us/pc/en/zarimanCycle")
@@ -67,67 +87,79 @@ async def zariman(ctx):
     else:
         await ctx.send("Error: Unable to retrieve Zariman faction data. Cephalon recommends further diagnostic, Operator.")
 
-
+#? voidtrader
 @client.command()
 async def voidtrader(ctx):
     voidtrader = req.get("https://api.warframestat.us/pc/en/voidTrader")
     voidtrader_data = voidtrader.json()
     await ctx.send(f"Operator, Baro Ki'Teer will return in *{voidtrader_data['startString']}* at the *{voidtrader_data['location']}*.<:OrokinDucats:1291370996229603430>")
 
+#? ~archon
 @client.command()
 async def archon(ctx):
     archon = req.get("https://api.warframestat.us/pc/en/archonHunt")
     archon_data = archon.json()
     await ctx.send(f"Operator, the Archon Hunt will reset in *{archon_data['eta']}*.<:ArchonShard:1291372955137474681>")
 
+#? ~sortie
 @client.command()
 async def sortie(ctx):
     sortie = req.get("https://api.warframestat.us/pc/en/sortie")
     sortie_data = sortie.json()
     await ctx.send(f"Operator, the sortie will reset in *{sortie_data['eta']}*.<:Sortie:1291378207337222224>")
 
+#? ~api
 @client.command()
 async def api(ctx):
     embed = dis.Embed()
     embed.description = ("[api.warframestat.us](https://api.warframestat.us/pc/en)")
     await ctx.send(embed=embed)
 
+#? ~marketprice
 @client.command()
 async def marketprice(ctx, item: str):
     embed = dis.Embed()
     embed.description = (f"Operator, This command is in beta, [{item}](https://warframe.market/items/{item})")
     await ctx.send(embed=embed)
 
+#? ~randomframe
 @client.command()
 async def randomframe(ctx):
     frames = ["Ash", "Atlas", "Banshee", "Baruuk", "Caliban", "Chroma", "Citrine", "Dagath", "Ember", "Equinox", "Excalibur", "Frost", "Gara", "Garuda", "Gauss", "Grendel", "Gyre", "Harrow", "Hildryn", "Hydroid", "Inaros", "Ivara", "Khora", "Kullervo", "Lavos", "Limbo", "Loki", "Mag", "Mesa", "Mirage", "Nekros", "Nezha", "Nidus", "Nova", "Nyx", "Oberon", "Octavia", "Protea", "Qorvex", "Revenant", "Rhino", "Saryn", "Sevagoth", "Styanax", "Titania", "Trinity", "Valkyr", "Vauban", "Volt", "Voruna", "Wisp", "Wukong", "Xaku", "Yareli", "Zephyr"]
-    random_frame = ran.choice(frames)
-    print(f"random choice = {random_frame}")
-    embed = dis.Embed()
+    random_frame = ran.choice(frames) #random choice from list above
+    print(f"random choice = {random_frame}") #prints to console *just for debug*
+    embed = dis.Embed() #defines embed
     embed.description = f"Operator, your randomized Warframe is... [{random_frame}](https://warframe.fandom.com/wiki/{random_frame})."
-    await ctx.send(embed=embed)
+    await ctx.send(embed=embed)#sends embed
 
+#? ~guilds
 @client.command()
 async def guilds(ctx):
+    await ctx.send('Operator, Cordis is working on this command it is not ready')
 
+#? ~kick
 @client.command()
-@commands.has_permissions(kick_members=True)  # Requires kick permissions
+@commands.has_permissions(kick_members=True)  #user needs perissions to run
 async def kick(ctx, member: dis.Member, *, reason=None):
-    await member.kick(reason=reason)
+    await member.kick(reason=reason) #kicks named user
     await ctx.send(f'Operator, {member} has been kicked for {reason}.')
 
+#? ~ban
 @client.command()
-@commands.has_permissions(ban_members=True)  # Requires Ban permissions
+@commands.has_permissions(ban_members=True) #user needs perissions to run
 async def ban(ctx, member: dis.Member, *, reason=None):
-    await member.ban(reason=reason)
-    await ctx.send(f'Operator, {member} has been Ban for {reason}.')
+    await member.ban(reason=reason) #kicks named user
+    await ctx.send(f'Operator, {member} has been Banned for {reason}.')
 
+#? ~relics
 @client.command()
 async def relics(ctx):
     relics = []
 
+#! login msg
 @client.event
 async def on_ready():
     print(f'Logged in as {client.user.name}')
 
+#! run client
 client.run(client_token)
