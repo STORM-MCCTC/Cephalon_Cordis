@@ -9,6 +9,7 @@ with open('client_token.txt', 'r') as file:
     client_token = file.read().strip()
 
 API_URL = 'https://api.warframestat.us/pc/en'
+API_market_URL = 'https://api.warframe.market/v1/items/'
 
 intents = dis.Intents.default()
 intents.message_content = True
@@ -17,7 +18,7 @@ client = commands.Bot(command_prefix='~', intents=intents)
 
 @client.command()
 async def ping(ctx):
-    await ctx.send("Client Pinged")
+    await ctx.send("Operator, I have been Pinged. Do you need my help?")
 
 @client.command()
 async def cetus(ctx):
@@ -93,11 +94,9 @@ async def api(ctx):
 
 @client.command()
 async def marketprice(ctx, item: str):
-    # market = req.get(f"https://warframe.market/items/{item}/statistics")
-    # bs = BeautifulSoup(market.text, "html.parser")
-    # price = bs.find("span", class_="legend__avg").text
-    # await ctx.send(price)
-    await ctx.send("command broken rn")
+    embed = dis.Embed()
+    embed.description = (f"Operator, This command is in beta, [{item}](https://warframe.market/items/{item})")
+    await ctx.send(embed=embed)
 
 @client.command()
 async def randomframe(ctx):
@@ -107,6 +106,25 @@ async def randomframe(ctx):
     embed = dis.Embed()
     embed.description = f"Operator, your randomized Warframe is... [{random_frame}](https://warframe.fandom.com/wiki/{random_frame})."
     await ctx.send(embed=embed)
+
+@client.command()
+async def guilds(ctx):
+
+@client.command()
+@commands.has_permissions(kick_members=True)  # Requires kick permissions
+async def kick(ctx, member: dis.Member, *, reason=None):
+    await member.kick(reason=reason)
+    await ctx.send(f'Operator, {member} has been kicked for {reason}.')
+
+@client.command()
+@commands.has_permissions(ban_members=True)  # Requires Ban permissions
+async def ban(ctx, member: dis.Member, *, reason=None):
+    await member.ban(reason=reason)
+    await ctx.send(f'Operator, {member} has been Ban for {reason}.')
+
+@client.command()
+async def relics(ctx):
+    relics = []
 
 @client.event
 async def on_ready():
