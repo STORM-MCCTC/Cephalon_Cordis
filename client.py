@@ -12,7 +12,7 @@ with open('client_token.txt', 'r') as file:
 #! Globle Vars
 API_URL = 'https://api.warframestat.us/pc/en'
 API_market_URL = 'https://api.warframe.market/v1/items/'
-client_verison = '0.1.9.1'
+client_verison = '0.1.10.0'
 
 #! client_verison info
 #? first number is for if the bot is out of beta or not 0 = beta, 1 = launched
@@ -118,7 +118,7 @@ async def api(ctx):
 #? ~marketprice
 @client.command()
 async def marketprice(ctx, item: str):
-    embed = dis.Embed()
+    embed = dis.Embed(color=0xcc13ad)
     embed.description = (f"Operator, This command is in beta, [{item}](https://warframe.market/items/{item})")
     await ctx.send(embed=embed)
 
@@ -128,9 +128,32 @@ async def randomframe(ctx):
     frames = ["Ash", "Atlas", "Banshee", "Baruuk", "Caliban", "Chroma", "Citrine", "Dagath", "Dante", "Ember", "Equinox", "Excalibur", "Frost", "Gara", "Garuda", "Gauss", "Grendel", "Gyre", "Harrow", "Hildryn", "Hydroid", "Inaros", "Ivara", "Jade", "Khora", "Koumei", "Kullervo", "Lavos", "Limbo", "Loki", "Mag", "Mesa", "Mirage", "Nekros", "Nezha", "Nidus", "Nova", "Nyx", "Oberon", "Octavia", "Protea", "Qorvex", "Revenant", "Rhino", "Saryn", "Sevagoth", "Styanax", "Titania", "Trinity", "Valkyr", "Vauban", "Volt", "Voruna", "Wisp", "Wukong", "Xaku", "Yareli", "Zephyr"]
     random_frame = ran.choice(frames) #random choice from list above
     print(f"random choice = {random_frame}") #prints to console *just for debug*
-    embed = dis.Embed() #defines embed
+    embed = dis.Embed(color=0xcc13ad) #defines embed
     embed.description = f"Operator, your randomized Warframe is... [{random_frame}](https://warframe.fandom.com/wiki/{random_frame})."
     await ctx.send(embed=embed)#sends embed
+
+#? ~koumeidice
+@client.command()
+async def koumeidice(ctx):
+    dice1 = ran.randrange(1,6)
+    dice2 = ran.randrange(1,6)
+    dice3 = ran.randrange(1,6)
+    dice4 = ran.randrange(1,6)
+    dice5 = ran.randrange(1,6)
+    await ctx.send(f"the Operator has Rolled {dice1}, {dice2}, {dice3}, {dice4}, {dice5} on the Dice-Maiden Dice.")
+
+#? ~updates
+@client.command()
+async def updates(ctx):
+    url = "https://overframe.gg/"
+    response = req.get(url)
+    soup = BeautifulSoup(response.text, 'html.parser')
+    elements = soup.find_all(class_='index_itemBundleName__iwGSM')
+    embed = dis.Embed(title="Warframe Updates", color=0xcc13ad)
+    embed.description = "Operator, here are all the most recent updates for Warframe:\n\n"
+    for element in elements:
+        embed.description += f"{element.get_text(strip=True)}\n"
+    await ctx.send(embed=embed)
 
 #? ~guilds
 @client.command()
@@ -142,6 +165,7 @@ async def guilds(ctx):
 async def relics(ctx):
     relics = []
     await ctx.send('Operator, Cordis is working on this command it is not ready')
+
 
 #! admin commands
 
@@ -162,7 +186,7 @@ async def ban(ctx, member: dis.Member, *, reason=None):
 #! login msg
 @client.event
 async def on_ready():
-    print(f'Logged in as {client.user.name}')
+    print(f'Operator, {client.user.name} has been logged in')
 
 #! run client
 client.run(client_token)
