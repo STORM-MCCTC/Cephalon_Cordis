@@ -12,13 +12,13 @@ with open('client_token.txt', 'r') as file:
 #! Globle Vars
 API_URL = 'https://api.warframestat.us/pc/en'
 API_market_URL = 'https://api.warframe.market/v1/items/'
-client_verison = '0.1.9.0'
+client_verison = '0.1.9.1'
 
 #! client_verison info
 #? first number is for if the bot is out of beta or not 0 = beta, 1 = launched
 #? second number is for major verisons that change alot about the bot
-#? third number is for minor verisons such as bug fixs and small features
-#? forth number is for mid-minor verison updates, i work on multiple computers so if i run out of time i need to push a possibley unfinesed project to github to pull later these verison are unstable.
+#? third number is for minor verisons such as small features
+#? forth number is for very minor verisons bug fixs and comments
 
 #! Intents
 intents = dis.Intents.default()
@@ -27,7 +27,7 @@ intents.message_content = True
 #! prefix
 client = commands.Bot(command_prefix='~', intents=intents)
 
-#! commands
+#! ~commands
 
 #? ~ping
 @client.command()
@@ -125,7 +125,7 @@ async def marketprice(ctx, item: str):
 #? ~randomframe
 @client.command()
 async def randomframe(ctx):
-    frames = ["Ash", "Atlas", "Banshee", "Baruuk", "Caliban", "Chroma", "Citrine", "Dagath", "Ember", "Equinox", "Excalibur", "Frost", "Gara", "Garuda", "Gauss", "Grendel", "Gyre", "Harrow", "Hildryn", "Hydroid", "Inaros", "Ivara", "Khora", "Kullervo", "Lavos", "Limbo", "Loki", "Mag", "Mesa", "Mirage", "Nekros", "Nezha", "Nidus", "Nova", "Nyx", "Oberon", "Octavia", "Protea", "Qorvex", "Revenant", "Rhino", "Saryn", "Sevagoth", "Styanax", "Titania", "Trinity", "Valkyr", "Vauban", "Volt", "Voruna", "Wisp", "Wukong", "Xaku", "Yareli", "Zephyr"]
+    frames = ["Ash", "Atlas", "Banshee", "Baruuk", "Caliban", "Chroma", "Citrine", "Dagath", "Dante", "Ember", "Equinox", "Excalibur", "Frost", "Gara", "Garuda", "Gauss", "Grendel", "Gyre", "Harrow", "Hildryn", "Hydroid", "Inaros", "Ivara", "Jade", "Khora", "Koumei", "Kullervo", "Lavos", "Limbo", "Loki", "Mag", "Mesa", "Mirage", "Nekros", "Nezha", "Nidus", "Nova", "Nyx", "Oberon", "Octavia", "Protea", "Qorvex", "Revenant", "Rhino", "Saryn", "Sevagoth", "Styanax", "Titania", "Trinity", "Valkyr", "Vauban", "Volt", "Voruna", "Wisp", "Wukong", "Xaku", "Yareli", "Zephyr"]
     random_frame = ran.choice(frames) #random choice from list above
     print(f"random choice = {random_frame}") #prints to console *just for debug*
     embed = dis.Embed() #defines embed
@@ -136,6 +136,14 @@ async def randomframe(ctx):
 @client.command()
 async def guilds(ctx):
     await ctx.send('Operator, Cordis is working on this command it is not ready')
+
+#? ~relics
+@client.command()
+async def relics(ctx):
+    relics = []
+    await ctx.send('Operator, Cordis is working on this command it is not ready')
+
+#! admin commands
 
 #? ~kick
 @client.command()
@@ -150,11 +158,6 @@ async def kick(ctx, member: dis.Member, *, reason=None):
 async def ban(ctx, member: dis.Member, *, reason=None):
     await member.ban(reason=reason) #kicks named user
     await ctx.send(f'Operator, {member} has been Banned for {reason}.')
-
-#? ~relics
-@client.command()
-async def relics(ctx):
-    relics = []
 
 #! login msg
 @client.event
