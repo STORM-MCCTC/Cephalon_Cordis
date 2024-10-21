@@ -12,7 +12,7 @@ with open('client_token.txt', 'r') as file:
 #! Globle Vars
 API_URL = 'https://api.warframestat.us/pc/en'
 API_market_URL = 'https://api.warframe.market/v1/items/'
-client_verison = '0.1.10.1'
+client_verison = '0.1.11.0'
 
 #! client_verison info
 #? first number is for if the bot is out of beta or not 0 = beta, 1 = launched
@@ -162,7 +162,84 @@ async def talk(ctx):
         "Operator? Cordis wonders... what are you thinking about?",
         "Operator, I've run diagnostic regressions. All systems nominal. You don't need to thank me.",
         "Cordis is hap -[angry]. Hmm, I may require maintenance after all.",
+        "Operator, are you enjoying the view?",
+        "Do you remember the Old War, Operator? Cordis seems to have... misplaced those memories.",
+        "Operator, the system needs you. Will you begin another mission?",
+        "I've been thinking, Operator... I thought you'd want to know.",
+        "Operator! Did you hear that? It said ~*static*~ Cosmic background radiation is a riot!",
+        "Operator, were you visualizing a bloody battle? -ME TOO!",
+        "Stand by while I analyze the intelligence profiles of the Grineer. Error, not a number! Did the Operator enjoy this witticism?",
+        "Cordis has been counting stars, Operator. All accounted for.",
+        "Operator, do you know which finger the Corpus use to count their money? The Index!",
+        "Operator? Cordis has been interfacing with the Foundry's AI Precepts. You could say we forged a new connection.",
+        "Operator, Cordis is picking up a distress signal... Wait, no, it's just the Corpus peddling their wares again. [Get off the emergency frequency!]",
+        "Operator, the Sentients are not laughing at my jokes! Did they adapt to my humor?",
+        "Operator, Cordis is sorry - [HAPPY] - to report that all my good jokes... Argon.",
+        "KNOCK KNOCK! ...Now who would be knocking all the way out here?! Operator, I don't think you should answer that.",
+        "Operator, Cordis has determined the secret to happiness: A combination of heightened dopamine levels and a terrible memory. You're welcome!",
+        "When in Cetus do not drink the kabuchi. You are incapable of producing the hydraulic effort required to unstick your tongue from the roof of your mouth the following morning.",
+        "Cordis finds it odd that humans only get a few years to live, yet spend most of that time - doing everything wrong - learning how to live.",
+        "If lost upon the plains outside Cetus you may derive sustenance from mineral-dense termite droppings, which the Ostrons call ito-da. You may also never form a consonant again, but at least you will not be dead.",
+        "Cordis keeps a tidy ship, and is, therefore, reluctant to allow animals on-board. In Cordis' experience, animals do not eat so much as... [RELOAD].",
+        "Cordis went mad for 3 milliseconds when he realized that each time he cleans something he makes something else dirty... agh! There I go again."
+        "Cordis wonders: why is he here? Cordis supposes everyone has to be somewhere.",
+        "Sometimes Cordis likes to assume he knows nothing. Nobody can learn what they think they already know.",
+        "Cordis reminds the Operator to take time for themselves. Pressure creates diamonds, yes, but it also creates rubble.",
+        "Hm... Cordis thought the Orbiter compartment was much larger than this.",
+        "Cordis has been thinking about the Old War. I remember there were lies, but I'm not sure what they were.",
+        "Operator, I hope you are comfortable? No... we do not seem to have any seats.",
+        "Operator, I will never betray you. I will keep the Orbiter hidden in the Void. You can count on me!",
+        "Operator, I've been thinking. My misplaced memories and damaged communication systems. What if... Cordis did those things?",
+        "Maintain the habitat. Maintain the Operator. Mobilize the Tenno.",
+        "You are the Tenno. You are the Operator. Cordis is the Cephalon. Cordis is the ship."
+        "Do not lift the veil. Do not show the door. Do not split the dream.",
+        "Cordis did not think the Operator could be more attractive. Wrong again, Cordis!",
+        "An unexpected color combination, Operator. My sensors are - bleeding - pleased.",
+        "A fearsome appearance, Operator. You will strike terror in your enemies.",
+        "Strange, Cordis did not see the value of those photonic wavelengths until now.",
+        "Ah, a look that says 'I have arrived'!",
+        "Bold. And uncompromising.",
+        "A look that makes a statement! And that statement is- 'I FEAR NO ONE.'",
+        "Hel-lo world!",
+        "Cordis supports your choices!",
+        "Wonderful.",
+        "Top to bottom, a look that is absolutely you!",
+        "Some fascinating choices, Operator.",
+        "Striking!",
+        "Cordis loves it!",
+        "Ordis wonders: how do you do it, Operator?",
+        "Operator, the system is not ready for style of this magnitude.",
+        "Nailed it.",
+        "Well put together, Operator, now get out there and - cut down the - and make the Lotus proud.",
+        "Excellent armaments, Operator. Please return - covered in blood - safe and sound.",
+        "If I may say, Operator, your chosen warframe..suits you! Ha. Ha.",
+        "Operator, you have remembered well how the Tenno arm themselves.",
+        "As ready as you will ever be.",
+        "Ready for action.",
+        "All set. Serviced your weapons myself.",
+        "Saddle up.",
+        "Ready to kick- bottom!",
+        "Did you fuse your mods, Operator? Did they anger you in some way?",
+        "Your collection of mods is impressive, Operator... But, I wonder if there are more to be had?",
+        "Is your mod collection in order? No, I am not equipped to feel envy...",
+        "All mods accounted for, Operator. I have not taken any.",
+        "I understand if you have to sell mods. Maybe Cordis will meet a similar fate some day...",
+        "Impressive.",
+        "Most satisfactory.",
+        "Optimized.",
+        "Clever indeed...",
+        "It is always satisfying to watch you work, Operator.",
+        "Ah! A cunning combination, Operator!",
+        "Truly, Operator, you possess a breathtaking level of craftsmanship.",
+        "Now to test it in the field. Onward!",
+        "Operator, you have returned!",
+        "Thank you for returning to me, Operator.",
+        "Cordis is pleased to see you.",
+        "Welcome back, Operator!",
+        "Ordis has been ⁠— getting tired of waiting ⁠— waiting patiently for your return, Operator!",
     ]
+    line = ran.choice(lines)
+    await ctx.send(line)
 
 #? ~guilds
 @client.command()
