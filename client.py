@@ -12,7 +12,7 @@ with open('client_token.txt', 'r') as file:
 #! Globle Vars
 API_URL = 'https://api.warframestat.us/pc/en'
 API_market_URL = 'https://api.warframe.market/v1/items/'
-client_verison = '0.1.10.0'
+client_verison = '0.1.10.1'
 
 #! client_verison info
 #? first number is for if the bot is out of beta or not 0 = beta, 1 = launched
@@ -154,6 +154,15 @@ async def updates(ctx):
     for element in elements:
         embed.description += f"{element.get_text(strip=True)}\n"
     await ctx.send(embed=embed)
+
+#? ~talk
+@client.command()
+async def talk(ctx):
+    lines = [
+        "Operator? Cordis wonders... what are you thinking about?",
+        "Operator, I've run diagnostic regressions. All systems nominal. You don't need to thank me.",
+        "Cordis is hap -[angry]. Hmm, I may require maintenance after all.",
+    ]
 
 #? ~guilds
 @client.command()
