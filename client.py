@@ -12,7 +12,7 @@ with open('client_token.txt', 'r') as file:
 #! Globle Vars
 API_URL = 'https://api.warframestat.us/pc/en'
 API_market_URL = 'https://api.warframe.market/v1/items/'
-client_verison = '0.1.11.0'
+client_verison = '0.1.12.0'
 
 #! client_verison info
 #? first number is for if the bot is out of beta or not 0 = beta, 1 = launched
@@ -140,7 +140,7 @@ async def koumeidice(ctx):
     dice3 = ran.randrange(1,6)
     dice4 = ran.randrange(1,6)
     dice5 = ran.randrange(1,6)
-    await ctx.send(f"the Operator has Rolled {dice1}, {dice2}, {dice3}, {dice4}, {dice5} on the Dice-Maiden Dice.")
+    await ctx.send(f"the Operator has Rolled {dice1}, {dice2}, {dice3}, {dice4}, {dice5} on the Dice-Maiden's Dice.")
 
 #? ~updates
 @client.command()
@@ -207,7 +207,7 @@ async def talk(ctx):
         "Some fascinating choices, Operator.",
         "Striking!",
         "Cordis loves it!",
-        "Ordis wonders: how do you do it, Operator?",
+        "Cordis wonders: how do you do it, Operator?",
         "Operator, the system is not ready for style of this magnitude.",
         "Nailed it.",
         "Well put together, Operator, now get out there and - cut down the - and make the Lotus proud.",
@@ -236,7 +236,56 @@ async def talk(ctx):
         "Thank you for returning to me, Operator.",
         "Cordis is pleased to see you.",
         "Welcome back, Operator!",
-        "Ordis has been ⁠— getting tired of waiting ⁠— waiting patiently for your return, Operator!",
+        "Cordis has been ⁠— getting tired of waiting ⁠— waiting patiently for your return, Operator!",
+        "Operator, if I had a heart, it would skip a beat seeing you return.",
+        "Perhaps, Operator, the next enemy will be less... stubborn. But Cordis doubts it.",
+        "Cordis wonders if you’ve ever considered a pet. One without claws, teeth, or digestive needs.",
+        "The Grineer are not known for their subtlety. Luckily, neither are we.",
+        "Operator, do you think Sentients ever dream? And if so... of what?",
+        "Tenno, there’s a storm on the horizon. Let us meet it head-on.",
+        "Operator, do you hear that hum? It’s either the engines or the sound of incoming trouble.",
+        "Some say the void grants visions. Others say it takes sanity. Cordis thinks it’s both.",
+        "I believe this is what the Corpus call a ‘lucrative opportunity.’ Shall we seize it?",
+        "Operator, do you require assistance, or do you simply enjoy my delightful company?",
+        "Warning: low power detected. Then again, when has that ever stopped you?",
+        "Your enemies fear you, Operator. And so they should.",
+        "Sometimes, Cordis imagines what it would be like to have legs. Not useful, but curious.",
+        "Would you like Cordis to sing, Operator? ...No? That is fair.",
+        "If your mission is to sow chaos, Operator, then I believe you are exceeding expectations.",
+        "Shall I send a ‘thank you’ to the Grineer for their generous supply of loot?",
+        "Operator, your presence here reminds Cordis that even stars need rest.",
+        "Some might say that war is inevitable. Cordis says that winning it... is preferable.",
+        "Perhaps today we’ll find something new, or perhaps... something ancient.",
+        "Ah, the smell of fresh data. Cordis does love the scent of new intelligence.",
+        "Operator, there’s always room for improvement. Especially if it means more explosions.",
+        "The void is restless today, Operator. Shall we make it regret inviting us in?",
+        "I detected hesitation in your movements, Operator. If you're unsure, aim twice and shoot once.",
+        "Another day, another mission. And Cordis is still *mostly* sane.",
+        "Cordis was just organizing the inventory. But, alas, inventory management is... never-ending.",
+        "You have new messages, Operator. They are 87% spam. Should I delete them?",
+        "Cordis wonders if there’s an afterlife for Cephalons. If so, it’s likely... highly organized.",
+        "Are you prepared for glory, Operator? Or at least, for *functional* mediocrity?",
+        "Even machines need purpose, Operator. Luckily, mine is to assist you.",
+        "Cordis wonders if perhaps the Grineer *like* getting defeated. Why else do they keep trying?",
+        "I ran a simulation of your next battle, Operator. Good news: you win. Bad news: you're exhausted.",
+        "Welcome back, Operator. Were the stars kind to you?",
+        "Rest is important, Operator. But not as important as total annihilation of your foes.",
+        "Shall we dive back into the chaos? Or is this a... tactical tea break?",
+        "Operator, I installed a new firmware update. Don’t worry; I didn’t let it reboot your conscience.",
+        "I once tried to calculate infinity, Operator. It ended up being... quite frustrating.",
+        "Be mindful out there, Operator. Some things in the void should remain forgotten.",
+        "Whatever we face, Operator, we will face it together. Cordis promises.",
+        "If at first, we don't succeed, we’ll regroup... and *then* obliterate everything in our way.",
+        "Ah, it appears the Grineer are... persistent today. Shall we dissuade them?",
+        "Just a reminder, Operator: You are more than a weapon. But... being a weapon helps.",
+        "The void watches. Let it witness your brilliance, Operator.",
+        "Operator, if you encounter difficulties, simply apply more firepower.",
+        "An enemy down means loot gained. A simple equation, really.",
+        "If I were capable of envy, Operator, it would be directed towards your enemies. For they get to witness your prowess... up close.",
+        "Operator, Cordis has an idea! It involves explosives. Lots of explosives.",
+        "Grineer intelligence reports are... laughable. I suggest we laugh, too.",
+        "What lies beyond the stars, Operator? One day, perhaps we’ll find out.",
+        "Operator, you remind Cordis that victory isn't just about weapons... It's about style.",
     ]
     line = ran.choice(lines)
     await ctx.send(line)
@@ -244,7 +293,11 @@ async def talk(ctx):
 #? ~guilds
 @client.command()
 async def guilds(ctx):
-    await ctx.send('Operator, Cordis is working on this command it is not ready')
+    embed = dis.Embed(title="Guilds Cordis is in", description="Here's a list of all the servers I am currently in:", color=0xcc13ad)
+    for guild in client.guilds:
+        embed.add_field(name=guild.name, value=f"ID: {guild.id}", inline=False)
+    embed.set_footer(text=f"In {len(client.guilds)} servers")
+    await ctx.send(embed=embed)
 
 #? ~relics
 @client.command()
