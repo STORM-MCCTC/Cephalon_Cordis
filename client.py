@@ -13,7 +13,8 @@ with open('client_token.txt', 'r') as file:
 API_STATUS_URL = 'https://api.warframestat.us/pc/en'
 API_MARKET_URL = 'https://api.warframe.market/v1/items'
 API_OVERFRAME_API = 'https://overframe.gg'
-client_verison = '0.1.13.0'
+client_verison = '0.1.13.1'
+Dev_Server = 1285212145788915772
 
 #! client_verison info
 #? first number is for if the bot is out of beta or not 0 = beta, 1 = launched
@@ -28,8 +29,9 @@ intents.message_content = True
 #! prefix
 client = commands.Bot(command_prefix='~', intents=intents)
 
-#! ~commands
+#! PREFIX COMMANDS ----------------------------------------------------------------------------------------------------------------------
 
+#! ~commands
 #? ~ping
 @client.command()
 async def ping(ctx):
@@ -332,7 +334,6 @@ async def relics(ctx):
 
 
 #! admin commands
-
 #? ~kick
 @client.command()
 @commands.has_permissions(kick_members=True)  #user needs perissions to run
@@ -349,9 +350,16 @@ async def ban(ctx, member: dis.Member, *, reason=None):
     print(f"{client.user.name}, {client_verison}, ~{ctx.command}, {ctx.guild.id}, {ctx.channel.name if ctx.guild else 'Direct Message'}, {ctx.author}, {ctx.author.id}, {ctx.message.content}, {ctx.message.created_at}")
     await ctx.send(f'Operator, {member} has been Banned for {reason}.')
 
+#! SLASH COMMANDS ----------------------------------------------------------------------------------------------------------------------
+
+@client.tree.command(guild=dis.Object(id=Dev_Server))
+async def hello(interaction: dis.Interaction):
+    await interaction.response.send_message(f"Hello, {interaction.user.mention}!")
+
 #! login msg
 @client.event
 async def on_ready():
+    await client.tree.sync()
     print(f'Operator, {client.user.name}, {client_verison} has been logged in')
 
     def get_status_code(url):
