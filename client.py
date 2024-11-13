@@ -15,8 +15,8 @@ with open('client_token.txt', 'r') as file:
 API_STATUS_URL = 'https://api.warframestat.us/pc/en'
 API_MARKET_URL = 'https://api.warframe.market/v1/items'
 API_OVERFRAME_API = 'https://overframe.gg'
-client_verison = '0.2.0.0'
-Dev_Server = 1285212145788915772  # Replace with your actual server ID
+client_verison = '0.2.1.0'
+Dev_Server = 1285212145788915772 
 
 # Intents
 intents = dis.Intents.default()
@@ -28,6 +28,33 @@ client = commands.Bot(command_prefix='~', intents=intents)
 #! PREFIX COMMANDS ----------------------------------------------------------------------------------------------------------------------
 
 #! ~commands 
+
+#? ~news
+@client.command()
+async def news(ctx, news_type: str):
+    # Fetch the data from the Warframe API
+    response = req.get("https://api.warframestat.us/pc/en/news")
+    if response.status_code == 200:
+        news_items = response.json()
+
+        # Iterate over each news item (index 0 to 13)
+        for news in news_items[:14]:
+            # Check if the news item matches the requested news type
+            if news.get(news_type, False):  # e.g., news['update'], news['primeAccess'], or news['stream']
+                # Extract message, link, and imageLink
+                message = news.get("message", "No message available")
+                link = news.get("link", "#")
+                image_link = news.get("imageLink", "")
+
+                # Create an embed
+                embed = dis.Embed(title=message, url=link, color=0xcc13ad)
+                embed.set_image(url=image_link)
+
+                # Send the embed
+                await ctx.send(embed=embed)
+    else:
+        await ctx.send("Failed to retrieve Warframe news.")
+
 #? ~ping
 @client.command()
 async def ping(ctx):
@@ -328,8 +355,8 @@ async def relics(ctx):
     print(f"{client.user.name}, {client_verison}, ~{ctx.command}, {ctx.guild.id}, {ctx.channel.name if ctx.guild else 'Direct Message'}, {ctx.author}, {ctx.author.id}, {ctx.message.content}, {ctx.message.created_at}")
     await ctx.send('Operator, Cordis is working on this command it is not ready')
 
-
 #! admin commands
+
 #? ~kick
 @client.command()
 @commands.has_permissions(kick_members=True)  #user needs perissions to run
@@ -351,6 +378,50 @@ async def ban(ctx, member: dis.Member, *, reason=None):
 @client.tree.command(guild=dis.Object(id=Dev_Server))
 async def ping(interaction: dis.Interaction):
     await interaction.response.send_message(f"{interaction.user.mention} Pong!")
+
+@client.event
+async def on_ready():
+    await client.tree.sync(guild=dis.Object(id=Dev_Server))
+    print(f'Logged in as {client.user}!')
+
+#? /news ...
+@client.tree.command(name="news", description="Fetches Warframe news based on type (update, primeAccess, stream)", guild=dis.Object(id=Dev_Server))
+@app_commands.describe(news_type="Type of news: update, primeAccess, or stream")
+async def news(interaction: dis.Interaction, news_type: str):
+    # Validate the input to ensure it’s one of the expected types
+    if news_type not in ["update", "primeAccess", "stream"]:
+        await interaction.response.send_message("Invalid news type! Choose 'update', 'primeAccess', or 'stream'.", ephemeral=True)
+        return
+
+    # Defer the response to allow more time to gather and send the embeds
+    await interaction.response.defer()
+
+    # Fetch the data from the Warframe API
+    response = req.get("https://api.warframestat.us/pc/en/news")
+    if response.status_code == 200:
+        news_items = response.json()
+
+        # Collect embeds for each relevant news item
+        embeds = []
+        for news in news_items[:14]:
+            if news.get(news_type, False):  # Check for the specified news type
+                message = news.get("message", "No message available")
+                link = news.get("link", "#")
+                image_link = news.get("imageLink", "")
+
+                # Create an embed
+                embed = dis.Embed(title=message, url=link, color=0xcc13ad)
+                embed.set_image(url=image_link)
+                embeds.append(embed)
+
+        # Send each embed as a follow-up message after deferring the initial response
+        if embeds:
+            for embed in embeds:
+                await interaction.followup.send(embed=embed)
+        else:
+            await interaction.followup.send(f"No news items found for '{news_type}'!", ephemeral=True)
+    else:
+        await interaction.followup.send("Failed to retrieve Warframe news.", ephemeral=True)
 
 #? /version
 @client.tree.command(name="version", guild=dis.Object(id=Dev_Server))
@@ -635,16 +706,13 @@ async def guilds(interaction: dis.Interaction):
 async def on_ready():
     await client.tree.sync(guild=dis.Object(id=Dev_Server))
     print(f'Operator, {client.user.name}, {client_verison} has been logged in')
-
     def get_status_code(url):
         response = req.get(url)
         print(f"Status Code for {url}: {response.status_code}")
         return response.status_code
-
     get_status_code(API_STATUS_URL)
     get_status_code(API_MARKET_URL)
     get_status_code(API_OVERFRAME_API)
-
     print(f"Client is ready and commands are synced for guild {Dev_Server}")
 
 # Run client
