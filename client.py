@@ -5,7 +5,6 @@ from discord.ext import commands
 from discord import app_commands
 from bs4 import BeautifulSoup
 import random as ran
-import time
 
 # Opens token
 with open('client_token.txt', 'r') as file:
@@ -15,7 +14,7 @@ with open('client_token.txt', 'r') as file:
 API_STATUS_URL = 'https://api.warframestat.us/pc/en'
 API_MARKET_URL = 'https://api.warframe.market/v1/items'
 API_OVERFRAME_API = 'https://overframe.gg'
-client_verison = '0.2.1.0'
+client_verison = '0.2.1.1'
 Dev_Server = 1285212145788915772 
 
 # Intents
